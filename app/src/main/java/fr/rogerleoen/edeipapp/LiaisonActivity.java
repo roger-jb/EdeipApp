@@ -22,7 +22,7 @@ public class LiaisonActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Ce sera pour ajouter un message", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -43,7 +43,10 @@ public class LiaisonActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_CarnetLiaison) {
+            return true;
+        }
+        if (id == R.id.action_CarnetLiaison){
             return true;
         }
 

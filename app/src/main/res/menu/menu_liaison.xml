@@ -2,9 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="fr.rogerleoen.edeipapp.LiaisonActivity">
-    <item
+    <!--<item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
+        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_CarnetLiaison"
+        android:orderInCategory="100"
+        android:title="@string/action_liaison"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_CahierText"
+        android:orderInCategory="100"
+        android:title="@string/action_texte"
         app:showAsAction="never" />
 </menu>
