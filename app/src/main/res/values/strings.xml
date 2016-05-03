@@ -4,4 +4,18 @@
     <string name="action_liaison">Carnet de Liaison</string>
     <string name="action_texte">Cahier de Texte</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">EDEIP : Connexion</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_login">Identifiant</string>
+    <string name="prompt_password">Mot de Passe</string>
+    <string name="action_sign_in">Se Connecter</string>
+    <string name="action_sign_in_short">Connexion</string>
+    <string name="error_invalid_login">L\'identifiant n\'est pas valide</string>
+    <string name="error_invalid_password">le Mot de Passe est trop court</string>
+    <string name="error_incorrect_password">Mot de Passe incorrect</string>
+    <string name="error_field_required">Champ obligatoire</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 </resources>
