@@ -6,9 +6,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 public class AccueilActivity extends AppCompatActivity {
@@ -31,18 +37,9 @@ public class AccueilActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
-        super.onStart();
-        if (!Personne.getInstance().isConnected()){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    @Override
     protected void onResume(){
         super.onResume();
-        if (!Personne.getInstance().isConnected()){
+        if (!SingletonPersonne.getInstance().isConnected()){
             startActivity(new Intent(this, LoginActivity.class));
         }
     }
@@ -61,18 +58,56 @@ public class AccueilActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        // c'est pour les tests
+        final TextView HelloWorld = (TextView) findViewById(R.id.HelloWorldText);
+        assert HelloWorld != null;
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_CarnetLiaison :
-
+                HelloWorld.setText("Hello "+ SingletonPersonne.getUtilisateur().getNomUtilisateur() + " " + SingletonPersonne.getUtilisateur().getPrenomUtilisateur());
                 break;
             case R.id.action_CahierText :
-
+                AsyncWebService.testPost(HelloWorld);
                 break;
             case R.id.action_settings :
-
+                HelloWorld.setText(hash("crapouille5") + "compare : " + hash("crapouille5").equals("1a2b8b8dbfc756bbfb6aa2609dae7e9286a989764595713ab9034f237016ae95"));
+                break;
+            // c'est le seul qui est ok
+            case R.id.action_deconnexion :
+                SingletonPersonne.Deconnexion();
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private String hash(String password) {
+        MessageDigest digest;
+        String hash = "";
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            digest.update(password.getBytes());
+
+            hash = bytesToHexString(digest.digest());
+
+            Log.i("Eamorr", "result is " + hash);
+        } catch (NoSuchAlgorithmException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        return hash;
+    }
+
+    private String bytesToHexString(byte[] bytes) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < bytes.length; i++) {
+            String hex = Integer.toHexString(0xFF & bytes[i]);
+            if (hex.length() == 1) {
+                sb.append('0');
+            }
+            sb.append(hex);
+        }
+        return sb.toString();
     }
 }

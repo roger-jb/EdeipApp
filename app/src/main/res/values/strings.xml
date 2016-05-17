@@ -1,6 +1,7 @@
 <resources>
     <!-- url pour l'icone : http://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.space.trim=1&foreground.space.pad=0&foreColor=607d8b%2C0&crop=0&backgroundShape=square&backColor=ffffff%2C100&effects=none -->
     <string name="app_name">Edeip Extranet</string>
+    <string name="action_deconnexion">Déconnexion</string>
     <string name="action_liaison">Carnet de Liaison</string>
     <string name="action_texte">Cahier de Texte</string>
     <string name="action_settings">Settings</string>
