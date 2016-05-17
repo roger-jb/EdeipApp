@@ -9,35 +9,48 @@ import org.json.JSONObject;
  * Created by Jean-Baptiste on 16/05/2016.
  */
 public class Utilisateur {
-    protected String idUtilisateur;
+    protected Integer idUtilisateur;
     protected String nomUtilisateur;
     protected String prenomUtilisateur;
     protected String adr1Utilisateur;
     protected String adr2Utilisateur;
     protected String cpUtilisateur;
     protected String villeUtilisateur;
-    protected String actifUtilisateur;
+    protected Boolean actifUtilisateur;
     protected String mailUtilisateur;
     protected String dateNaissanceUtilisateur;
     protected String dateInscriptionUtilisateur;
 
     public Utilisateur(){}
+    public Utilisateur(Utilisateur unUtilisateur){
+        idUtilisateur = unUtilisateur.getIdUtilisateur();
+        nomUtilisateur = unUtilisateur.getNomUtilisateur();
+        prenomUtilisateur = unUtilisateur.getPrenomUtilisateur();
+        adr1Utilisateur = unUtilisateur.getAdr1Utilisateur();
+        adr2Utilisateur = unUtilisateur.getAdr2Utilisateur();
+        cpUtilisateur = unUtilisateur.getCpUtilisateur();
+        villeUtilisateur = unUtilisateur.getVilleUtilisateur();
+        actifUtilisateur = unUtilisateur.getActifUtilisateur();
+        mailUtilisateur = unUtilisateur.getMailUtilisateur();
+        dateNaissanceUtilisateur = unUtilisateur.getDateNaissanceUtilisateur();
+        dateInscriptionUtilisateur = unUtilisateur.getDateInscriptionUtilisateur();
+    }
 
     public void getFromJson(JSONObject jsonObjet) throws JSONException {
-        idUtilisateur               = jsonObjet.getString("idUtilisateur");
+        idUtilisateur               = jsonObjet.getInt("idUtilisateur");
         nomUtilisateur              = jsonObjet.getString("idUtilisateur");
         prenomUtilisateur           = jsonObjet.getString("idUtilisateur");
         adr1Utilisateur             = jsonObjet.getString("idUtilisateur");
         adr2Utilisateur             = jsonObjet.getString("idUtilisateur");
         cpUtilisateur               = jsonObjet.getString("idUtilisateur");
         villeUtilisateur            = jsonObjet.getString("idUtilisateur");
-        actifUtilisateur            = jsonObjet.getString("idUtilisateur");
+        actifUtilisateur            = jsonObjet.getBoolean("idUtilisateur");
         mailUtilisateur             = jsonObjet.getString("idUtilisateur");
         dateNaissanceUtilisateur    = jsonObjet.getString("idUtilisateur");
         dateInscriptionUtilisateur  = jsonObjet.getString("idUtilisateur");
     }
 
-    public String getIdUtilisateur() {
+    public Integer getIdUtilisateur() {
         return idUtilisateur;
     }
 
@@ -65,7 +78,7 @@ public class Utilisateur {
         return villeUtilisateur;
     }
 
-    public String getActifUtilisateur() {
+    public Boolean getActifUtilisateur() {
         return actifUtilisateur;
     }
 
@@ -81,7 +94,7 @@ public class Utilisateur {
         return dateInscriptionUtilisateur;
     }
 
-    public void setIdUtilisateur(String idUtilisateur) {
+    public void setIdUtilisateur(Integer idUtilisateur) {
         this.idUtilisateur = idUtilisateur;
     }
 
@@ -109,7 +122,7 @@ public class Utilisateur {
         this.villeUtilisateur = villeUtilisateur;
     }
 
-    public void setActifUtilisateur(String actifUtilisateur) {
+    public void setActifUtilisateur(Boolean actifUtilisateur) {
         this.actifUtilisateur = actifUtilisateur;
     }
 

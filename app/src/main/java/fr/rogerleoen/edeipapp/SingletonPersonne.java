@@ -1,11 +1,10 @@
 package fr.rogerleoen.edeipapp;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import fr.rogerleoen.edeipapp.asyncWebService.AsyncWebService;
 import fr.rogerleoen.edeipapp.objets.Connexion;
 import fr.rogerleoen.edeipapp.objets.Utilisateur;
 
@@ -29,7 +28,6 @@ public class SingletonPersonne {
     }
 
     public static void addConnexion (Connexion uneConnexion){
-        Iterator it = lesConnexions.iterator();
         Boolean found = false;
         for (Connexion laConnexion :
                 lesConnexions) {

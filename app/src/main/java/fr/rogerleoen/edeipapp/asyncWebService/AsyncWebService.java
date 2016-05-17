@@ -1,4 +1,4 @@
-package fr.rogerleoen.edeipapp;
+package fr.rogerleoen.edeipapp.asyncWebService;
 
 import android.text.Html;
 import android.util.Log;
@@ -24,20 +24,21 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import fr.rogerleoen.edeipapp.SingletonPersonne;
 import fr.rogerleoen.edeipapp.objets.Connexion;
+import fr.rogerleoen.edeipapp.objets.Responsable;
 import fr.rogerleoen.edeipapp.objets.Utilisateur;
 
 /**
  * Created by Jean-Baptiste on 15/05/2016.
  */
 public class AsyncWebService {
-    private static AsyncHttpClient client = new AsyncHttpClient();
-    private static SyncHttpClient syncClient = new SyncHttpClient();
-    private static String baseUrl = "http://roger-leoen.ddns.net/edeip/";
+    protected static AsyncHttpClient client = new AsyncHttpClient();
+    protected static String baseUrl = "http://roger-leoen.ddns.net/edeip/";
     //private static String baseUrl = "http://edeip-lyon.fr/";
 
 
-    private static String HtmlDecodePost(String laChaine){
+    protected static String HtmlDecodePost(String laChaine){
         return Html.fromHtml(laChaine).toString();
     }
 
@@ -118,28 +119,15 @@ public class AsyncWebService {
             @Override
             public void onSuccess(String response){
                 String LeRetour = HtmlDecodePost(response);
-                Log.i("LERETOUR", LeRetour);
                 Collection<Connexion> desConnexions;
                 try {
-
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Collection<Connexion>>(){}.getType();
                     desConnexions =  gRetour.fromJson(LeRetour, collectionType); //= gRetour.fromJson(LeRetour, collectionType);
 
-                    Log.e("SIZE GSON","size : "+ desConnexions.size());
-                    Iterator it = desConnexions.iterator();
-
-                    Connexion uneConnexion;
-
-                    while (it.hasNext()){
-                        uneConnexion = (Connexion) it.next();
-                        if (uneConnexion.getLoginUtilisateur().equals("ROGER.Jean-Baptiste")){
-                            Log.e("MDP import", uneConnexion.getMdpUtilisateur());
-                        }
+                    for (Connexion uneConnexion : desConnexions) {
                         SingletonPersonne.addConnexion(uneConnexion);
                     }
-
-                    Log.i("listConnexion", Integer.toString(SingletonPersonne.getLesConnexions().size()));
                 } catch (Throwable t) {
                     Log.e("My App", "Could not parse malformed JSON: ", t);
                 }
@@ -162,12 +150,9 @@ public class AsyncWebService {
             @Override
             public void onSuccess(String response){
                 String LeRetour = HtmlDecodePost(response);
-                //Utilisateur unUtilisateur = new Utilisateur();
                 try {
                     Gson gRetour = new Gson();
                     Type collectionType = new TypeToken<Utilisateur>(){}.getType();
-                    //unUtilisateur =  gRetour.fromJson(LeRetour, collectionType); //= gRetour.fromJson(LeRetour, collectionType);
-
                     SingletonPersonne.setUtilisateur((Utilisateur) gRetour.fromJson(LeRetour, collectionType));
 
                 } catch (Throwable t) {
@@ -180,4 +165,6 @@ public class AsyncWebService {
             }
         });
     }
+
+
 }

@@ -12,9 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import fr.rogerleoen.edeipapp.asyncWebService.AsyncWebService;
 
 
 public class AccueilActivity extends AppCompatActivity {
