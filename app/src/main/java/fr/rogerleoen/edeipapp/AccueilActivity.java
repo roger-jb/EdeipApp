@@ -16,9 +16,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import fr.rogerleoen.edeipapp.asyncWebService.AsyncWebService;
+import fr.rogerleoen.edeipapp.objets.Utilisateur;
 
 
 public class AccueilActivity extends AppCompatActivity {
+
+    private static TextView helloTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,22 +30,33 @@ public class AccueilActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Ce sera pour ajouter un message", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        helloTextView = (TextView) findViewById(R.id.helloTextView);
+
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Ce sera pour ajouter un message", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        if (!SingletonPersonne.getInstance().isConnected()){
+        if (!SingletonPersonne.isConnected()){
             startActivity(new Intent(this, LoginActivity.class));
         }
+        String text = "Bonjour\n\n"+SingletonPersonne.getUtilisateur().getPrenomUtilisateur()+" "+SingletonPersonne.getUtilisateur().getNomUtilisateur()+".";
+
+        Log.d("bonjour", text);
+        if (SingletonPersonne.isConnected())
+        while (text.equals("Bonjour\n\nnull null.")) {
+            text = "Bonjour\n\n" + SingletonPersonne.getUtilisateur().getPrenomUtilisateur() + " " + SingletonPersonne.getUtilisateur().getNomUtilisateur() + ".";
+            Log.d("bonjour", text);
+        }
+        helloTextView.setText(text);
     }
 
     @Override
@@ -58,21 +72,15 @@ public class AccueilActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        // c'est pour les tests
-        final TextView HelloWorld = (TextView) findViewById(R.id.HelloWorldText);
-        assert HelloWorld != null;
-        //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_CarnetLiaison :
-                HelloWorld.setText("Hello "+ SingletonPersonne.getUtilisateur().getNomUtilisateur() + " " + SingletonPersonne.getUtilisateur().getPrenomUtilisateur());
+                //helloTextView.setText("Hello "+ SingletonPersonne.getUtilisateur().getNomUtilisateur() + " " + SingletonPersonne.getUtilisateur().getPrenomUtilisateur());
                 break;
             case R.id.action_CahierText :
-                AsyncWebService.testPost(HelloWorld);
+                startActivity(new Intent(this, CahierTextItemListActivity.class));
                 break;
-            case R.id.action_settings :
-                HelloWorld.setText(hash("crapouille5") + "compare : " + hash("crapouille5").equals("1a2b8b8dbfc756bbfb6aa2609dae7e9286a989764595713ab9034f237016ae95"));
-                break;
+//            case R.id.action_settings :
+//                break;
             // c'est le seul qui est ok
             case R.id.action_deconnexion :
                 SingletonPersonne.Deconnexion();

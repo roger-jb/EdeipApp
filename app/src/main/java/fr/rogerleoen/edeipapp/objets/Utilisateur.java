@@ -1,6 +1,7 @@
 package fr.rogerleoen.edeipapp.objets;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,16 +10,27 @@ import org.json.JSONObject;
  * Created by Jean-Baptiste on 16/05/2016.
  */
 public class Utilisateur {
+    @SerializedName("idUtilisateur")
     protected Integer idUtilisateur;
+    @SerializedName("nomUtilisateur")
     protected String nomUtilisateur;
+    @SerializedName("prenomUtilisateur")
     protected String prenomUtilisateur;
+    @SerializedName("adr1Utilisateur")
     protected String adr1Utilisateur;
+    @SerializedName("adr2Utilisateur")
     protected String adr2Utilisateur;
+    @SerializedName("cpUtilisateur")
     protected String cpUtilisateur;
+    @SerializedName("villeUtilisateur")
     protected String villeUtilisateur;
+    @SerializedName("actifUtilisateur")
     protected Boolean actifUtilisateur;
+    @SerializedName("mailUtilisateur")
     protected String mailUtilisateur;
+    @SerializedName("dateNaissanceUtilisateur")
     protected String dateNaissanceUtilisateur;
+    @SerializedName("dateInscriptionUtilisateur")
     protected String dateInscriptionUtilisateur;
 
     public Utilisateur(){}

@@ -1,11 +1,16 @@
 package fr.rogerleoen.edeipapp.objets;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Jean-Baptiste on 17/05/2016.
  */
 public class Connexion {
+    @SerializedName("idUtilisateur")
     protected Integer idUtilisateur;
-    protected String  loginUtilisateur;
+    @SerializedName("loginUtilisateur")
+    protected String loginUtilisateur;
+    @SerializedName("mdpUtilisateur")
     protected String mdpUtilisateur;
 
     public Connexion() {

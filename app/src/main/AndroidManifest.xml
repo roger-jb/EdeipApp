@@ -3,10 +3,12 @@
     package="fr.rogerleoen.edeipapp">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!--
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,8 +28,24 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
-
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".CahierTextItemListActivity"
+            android:label="@string/title_cahiertextitem_list"
+            android:parentActivityName=".AccueilActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeipapp.AccueilActivity" />
+        </activity>
+        <activity
+            android:name=".CahierTextItemDetailActivity"
+            android:label="@string/title_cahiertextitem_detail"
+            android:parentActivityName=".CahierTextItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.rogerleoen.edeipapp.CahierTextItemListActivity" />
         </activity>
     </application>
 

@@ -1,10 +1,13 @@
 package fr.rogerleoen.edeipapp;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import fr.rogerleoen.edeipapp.asyncWebService.AsyncWebService;
+import fr.rogerleoen.edeipapp.asyncWebService.CahierTextWebService;
 import fr.rogerleoen.edeipapp.objets.Connexion;
 import fr.rogerleoen.edeipapp.objets.Utilisateur;
 
@@ -50,6 +53,9 @@ public class SingletonPersonne {
     private SingletonPersonne() {
         lesConnexions = new ArrayList<>();
         lesConnexions = AsyncWebService.getListConnexion();
+        Log.e("CahierTextContent", "Chargement liste");
+        CahierTextWebService.getListCahierText();
+        Log.e("CahierTextContent", "Chargement listeTerminé");
     }
 
     public static boolean connexion(String login, String password){
@@ -68,7 +74,7 @@ public class SingletonPersonne {
         login = SingletonPersonne.getUtilisateur().getNomUtilisateur();
     }
 
-    public boolean isConnected() {
+    public static boolean isConnected() {
         return estConnecte;
     }
 

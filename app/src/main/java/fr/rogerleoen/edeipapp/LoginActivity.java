@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 //Log.i("DUMMY_CREDENTIAL", test);
 
                 attemptLogin();
-                if (SingletonPersonne.getInstance().isConnected()){
+                if (SingletonPersonne.isConnected()){
                     changeActivity();
                 }
             }
@@ -82,6 +82,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         mEmailView.setText(SingletonPersonne.getInstance().getLogin());
+        if (!mEmailView.getText().equals("")) {
+            mPasswordView.requestFocus();
+        }
     }
 
     /**
@@ -228,7 +231,6 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             for (Connexion uneConnexion:SingletonPersonne.getLesConnexions()){
                 if (uneConnexion.getLoginUtilisateur().equals(mLogin)){
-
                     if (uneConnexion.getMdpUtilisateur().equals(hash(mPassword))){
                         SingletonPersonne.setUtilisateurById(uneConnexion.getIdUtilisateur());
                         SingletonPersonne.connexion(mLogin, mPassword);
@@ -246,6 +248,11 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

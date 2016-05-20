@@ -19,4 +19,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!-- Strings related to cahiertextitem -->
+    <string name="title_cahiertextitem_list">Cahier de Texte</string>
+    <string name="title_cahiertextitem_detail">Cahier de Texte : Detail</string>
 </resources>
