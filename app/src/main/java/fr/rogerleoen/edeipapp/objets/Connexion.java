@@ -2,10 +2,12 @@ package fr.rogerleoen.edeipapp.objets;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmModel;
+
 /**
  * Created by Jean-Baptiste on 17/05/2016.
  */
-public class Connexion {
+public class Connexion implements RealmModel{
     @SerializedName("idUtilisateur")
     protected Integer idUtilisateur;
     @SerializedName("loginUtilisateur")

@@ -24,8 +24,19 @@ public class Responsable extends Utilisateur {
     public Integer getIdResponsable () {
         return idUtilisateur;
     }
+
     public ArrayList<Eleve> getEleve(){
         return lesEleves;
+    }
+
+    public Eleve getEleveById(Integer idEleve){
+        for (Eleve unEleves: lesEleves
+             ) {
+            if(unEleves.getIdEleve().equals(idEleve)){
+                return unEleves;
+            }
+        }
+        return new Eleve();
     }
 
     public void addEleve(Eleve unEleve) {

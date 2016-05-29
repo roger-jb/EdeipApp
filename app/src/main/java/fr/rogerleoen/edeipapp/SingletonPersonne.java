@@ -4,18 +4,19 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import fr.rogerleoen.edeipapp.asyncWebService.AsyncWebService;
 import fr.rogerleoen.edeipapp.asyncWebService.CahierTextWebService;
 import fr.rogerleoen.edeipapp.objets.Connexion;
 import fr.rogerleoen.edeipapp.objets.Utilisateur;
+import io.realm.RealmList;
 
 /**
  * Created by Jean-Baptiste on 03/05/2016.
  */
 public class SingletonPersonne {
     private static SingletonPersonne ourInstance = new SingletonPersonne();
+    public static RealmList<Connexion> lesConnexion = new RealmList<>();
 
     public static void setUtilisateur(Utilisateur utilisateur) {
         SingletonPersonne.utilisateur = utilisateur;
@@ -26,9 +27,9 @@ public class SingletonPersonne {
     private static String login = "";
     public static boolean bConnexion = false;
 
-    public static void setLesConnexions(Collection<Connexion> lesConnexions) {
-        SingletonPersonne.lesConnexions = lesConnexions;
-    }
+//    public static void setLesConnexions(Collection<Connexion> lesConnexions) {
+//        SingletonPersonne.lesConnexions = lesConnexions;
+//    }
 
     public static void addConnexion (Connexion uneConnexion){
         Boolean found = false;
@@ -51,6 +52,7 @@ public class SingletonPersonne {
     public static Utilisateur getUtilisateur(){return utilisateur;}
 
     private SingletonPersonne() {
+        Log.i("SingletonPers", "new Singleton()");
         lesConnexions = new ArrayList<>();
         lesConnexions = AsyncWebService.getListConnexion();
         Log.e("CahierTextContent", "Chargement liste");
@@ -74,7 +76,7 @@ public class SingletonPersonne {
         login = SingletonPersonne.getUtilisateur().getNomUtilisateur();
     }
 
-    public static boolean isConnected() {
+    public boolean isConnected() {
         return estConnecte;
     }
 

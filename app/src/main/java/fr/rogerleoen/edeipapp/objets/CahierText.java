@@ -1,17 +1,24 @@
 package fr.rogerleoen.edeipapp.objets;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
+
+import io.realm.RealmModel;
 
 /**
  * Created by Jean-Baptiste on 18/05/2016.
  */
-public class CahierText {
+public class CahierText implements RealmModel{
     private Integer idCahierTexte;
     private Integer idMatiereNiveau;
-    private String dateRealisation;
+    @SerializedName("dateRealisation")
+    private Date dateRealisation;
+    @SerializedName("contenuCahierTexte")
     private String contenuCahierTexte;
     private Integer idRedacteur;
-    private String dateRedaction;
+    @SerializedName("dateRedaction")
+    private Date dateRedaction;
 
     @Override
     public String toString(){
@@ -34,11 +41,11 @@ public class CahierText {
         this.idMatiereNiveau = idMatiereNiveau;
     }
 
-    public String getDateRealisation() {
+    public Date getDateRealisation() {
         return dateRealisation;
     }
 
-    public void setDateRealisation(String dateRealisation) {
+    public void setDateRealisation(Date dateRealisation) {
         this.dateRealisation = dateRealisation;
     }
 
@@ -58,11 +65,11 @@ public class CahierText {
         this.idRedacteur = idRedacteur;
     }
 
-    public String getDateRedaction() {
+    public Date getDateRedaction() {
         return dateRedaction;
     }
 
-    public void setDateRedaction(String dateRedaction) {
+    public void setDateRedaction(Date dateRedaction) {
         this.dateRedaction = dateRedaction;
     }
 }

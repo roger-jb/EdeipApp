@@ -6,10 +6,17 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import io.realm.RealmModel;
+
 /**
  * Created by Jean-Baptiste on 16/05/2016.
  */
-public class Utilisateur {
+public class Utilisateur implements RealmModel {
     @SerializedName("idUtilisateur")
     protected Integer idUtilisateur;
     @SerializedName("nomUtilisateur")
@@ -29,9 +36,9 @@ public class Utilisateur {
     @SerializedName("mailUtilisateur")
     protected String mailUtilisateur;
     @SerializedName("dateNaissanceUtilisateur")
-    protected String dateNaissanceUtilisateur;
+    protected Date dateNaissanceUtilisateur;
     @SerializedName("dateInscriptionUtilisateur")
-    protected String dateInscriptionUtilisateur;
+    protected Date dateInscriptionUtilisateur;
 
     public Utilisateur(){}
     public Utilisateur(Utilisateur unUtilisateur){
@@ -48,7 +55,9 @@ public class Utilisateur {
         dateInscriptionUtilisateur = unUtilisateur.getDateInscriptionUtilisateur();
     }
 
-    public void getFromJson(JSONObject jsonObjet) throws JSONException {
+    public void getFromJson(JSONObject jsonObjet) throws JSONException, ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+
         idUtilisateur               = jsonObjet.getInt("idUtilisateur");
         nomUtilisateur              = jsonObjet.getString("idUtilisateur");
         prenomUtilisateur           = jsonObjet.getString("idUtilisateur");
@@ -58,8 +67,9 @@ public class Utilisateur {
         villeUtilisateur            = jsonObjet.getString("idUtilisateur");
         actifUtilisateur            = jsonObjet.getBoolean("idUtilisateur");
         mailUtilisateur             = jsonObjet.getString("idUtilisateur");
-        dateNaissanceUtilisateur    = jsonObjet.getString("idUtilisateur");
-        dateInscriptionUtilisateur  = jsonObjet.getString("idUtilisateur");
+        //14\/01\/1984
+        dateNaissanceUtilisateur    = dateFormat.parse(jsonObjet.getString("idUtilisateur"));
+        dateInscriptionUtilisateur  = dateFormat.parse(jsonObjet.getString("idUtilisateur"));
     }
 
     public Integer getIdUtilisateur() {
@@ -98,11 +108,11 @@ public class Utilisateur {
         return mailUtilisateur;
     }
 
-    public String getDateNaissanceUtilisateur() {
+    public Date getDateNaissanceUtilisateur() {
         return dateNaissanceUtilisateur;
     }
 
-    public String getDateInscriptionUtilisateur() {
+    public Date getDateInscriptionUtilisateur() {
         return dateInscriptionUtilisateur;
     }
 
@@ -142,11 +152,11 @@ public class Utilisateur {
         this.mailUtilisateur = mailUtilisateur;
     }
 
-    public void setDateNaissanceUtilisateur(String dateNaissanceUtilisateur) {
+    public void setDateNaissanceUtilisateur(Date dateNaissanceUtilisateur) {
         this.dateNaissanceUtilisateur = dateNaissanceUtilisateur;
     }
 
-    public void setDateInscriptionUtilisateur(String dateInscriptionUtilisateur) {
+    public void setDateInscriptionUtilisateur(Date dateInscriptionUtilisateur) {
         this.dateInscriptionUtilisateur = dateInscriptionUtilisateur;
     }
 }

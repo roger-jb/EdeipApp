@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +23,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 
+import fr.rogerleoen.edeipapp.asyncWebService.AsyncWebService;
 import fr.rogerleoen.edeipapp.objets.Connexion;
 
 /**
@@ -42,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        AsyncWebService.loadRealm();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -68,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 //Log.i("DUMMY_CREDENTIAL", test);
 
                 attemptLogin();
-                if (SingletonPersonne.isConnected()){
+                if (SingletonPersonne.getInstance().isConnected()){
                     changeActivity();
                 }
             }
@@ -82,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         mEmailView.setText(SingletonPersonne.getInstance().getLogin());
-        if (!mEmailView.getText().equals("")) {
+        if (!SingletonPersonne.getInstance().getLogin().equals("")) {
             mPasswordView.requestFocus();
         }
     }
@@ -217,8 +219,8 @@ public class LoginActivity extends AppCompatActivity {
 
         private String bytesToHexString(byte[] bytes) {
             StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < bytes.length; i++) {
-                String hex = Integer.toHexString(0xFF & bytes[i]);
+            for (byte aByte : bytes) {
+                String hex = Integer.toHexString(0xFF & aByte);
                 if (hex.length() == 1) {
                     sb.append('0');
                 }
@@ -229,6 +231,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            //Log.i("background", SingletonPersonne.getLesConnexions().iterator().next().getLoginUtilisateur());
             for (Connexion uneConnexion:SingletonPersonne.getLesConnexions()){
                 if (uneConnexion.getLoginUtilisateur().equals(mLogin)){
                     if (uneConnexion.getMdpUtilisateur().equals(hash(mPassword))){

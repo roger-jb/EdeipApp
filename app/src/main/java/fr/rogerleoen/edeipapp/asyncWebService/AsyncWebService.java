@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -101,6 +102,8 @@ public class AsyncWebService {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
                 SingletonPersonne.bConnexion = true;
             }
@@ -127,7 +130,10 @@ public class AsyncWebService {
 
                     for (Connexion uneConnexion : desConnexions) {
                         SingletonPersonne.addConnexion(uneConnexion);
+                        SingletonPersonne.lesConnexion.add(uneConnexion);
                     }
+
+                    Log.e("Realm", SingletonPersonne.lesConnexion.iterator().next().getLoginUtilisateur() + " "+ SingletonPersonne.lesConnexion.iterator().next().getIdUtilisateur());
                 } catch (Throwable t) {
                     Log.e("My App", "Could not parse malformed JSON: ", t);
                 }
@@ -167,4 +173,7 @@ public class AsyncWebService {
     }
 
 
+    public static void loadRealm() {
+
+    }
 }

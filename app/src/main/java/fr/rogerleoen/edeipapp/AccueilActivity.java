@@ -2,21 +2,15 @@ package fr.rogerleoen.edeipapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import fr.rogerleoen.edeipapp.asyncWebService.AsyncWebService;
-import fr.rogerleoen.edeipapp.objets.Utilisateur;
 
 
 public class AccueilActivity extends AppCompatActivity {
@@ -25,6 +19,7 @@ public class AccueilActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("AccueilActivity", String.valueOf(SingletonPersonne.getInstance().isConnected()));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -45,18 +40,19 @@ public class AccueilActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if (!SingletonPersonne.isConnected()){
+        if (!SingletonPersonne.getInstance().isConnected()){
             startActivity(new Intent(this, LoginActivity.class));
         }
-        String text = "Bonjour\n\n"+SingletonPersonne.getUtilisateur().getPrenomUtilisateur()+" "+SingletonPersonne.getUtilisateur().getNomUtilisateur()+".";
+        String text = "Bonjour\n"+SingletonPersonne.getUtilisateur().getPrenomUtilisateur()+" "+SingletonPersonne.getUtilisateur().getNomUtilisateur()+".";
 
         Log.d("bonjour", text);
-        if (SingletonPersonne.isConnected())
-        while (text.equals("Bonjour\n\nnull null.")) {
-            text = "Bonjour\n\n" + SingletonPersonne.getUtilisateur().getPrenomUtilisateur() + " " + SingletonPersonne.getUtilisateur().getNomUtilisateur() + ".";
-            Log.d("bonjour", text);
+        if (SingletonPersonne.getInstance().isConnected())
+        while (text.equals("Bonjour\nnull null.")) {
+            text = "Bonjour\n" + SingletonPersonne.getUtilisateur().getPrenomUtilisateur() + " " + SingletonPersonne.getUtilisateur().getNomUtilisateur() + ".";
+            //Log.d("bonjour", text);
         }
         helloTextView.setText(text);
+        Log.i("accueilActivity", "fin resume Acceuil");
     }
 
     @Override
@@ -77,11 +73,11 @@ public class AccueilActivity extends AppCompatActivity {
                 //helloTextView.setText("Hello "+ SingletonPersonne.getUtilisateur().getNomUtilisateur() + " " + SingletonPersonne.getUtilisateur().getPrenomUtilisateur());
                 break;
             case R.id.action_CahierText :
+                //startActivity(new Intent(this, AccueilCahierTextActivity.class));
                 startActivity(new Intent(this, CahierTextItemListActivity.class));
                 break;
 //            case R.id.action_settings :
 //                break;
-            // c'est le seul qui est ok
             case R.id.action_deconnexion :
                 SingletonPersonne.Deconnexion();
                 startActivity(new Intent(this, LoginActivity.class));
@@ -110,8 +106,8 @@ public class AccueilActivity extends AppCompatActivity {
 
     private String bytesToHexString(byte[] bytes) {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            String hex = Integer.toHexString(0xFF & bytes[i]);
+        for (byte aByte : bytes) {
+            String hex = Integer.toHexString(0xFF & aByte);
             if (hex.length() == 1) {
                 sb.append('0');
             }

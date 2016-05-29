@@ -19,16 +19,16 @@
         <activity
             android:name=".AccueilActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
         <activity
             android:name=".CahierTextItemListActivity"
             android:label="@string/title_cahiertextitem_list"
@@ -37,6 +37,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.rogerleoen.edeipapp.AccueilActivity" />
+
         </activity>
         <activity
             android:name=".CahierTextItemDetailActivity"
@@ -47,6 +48,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fr.rogerleoen.edeipapp.CahierTextItemListActivity" />
         </activity>
+        <activity android:name=".AccueilCahierTextActivity"></activity>
     </application>
 
 </manifest>
